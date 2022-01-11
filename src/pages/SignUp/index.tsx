@@ -16,6 +16,7 @@ const SignUp: React.FC = () => {
 
    const hadleSubmit = useCallback(async (data: object) => {
       try {
+         formRef.current?.setErrors({});
          const schema = Yup.object().shape({
             name: Yup.string().required('Nome Obrigatório!'),
             email: Yup.string()
@@ -28,12 +29,11 @@ const SignUp: React.FC = () => {
             abortEarly: false,
          });
       } catch (err) {
-         console.log(err);
-
          if (err instanceof Yup.ValidationError) {
+            //            console.log(err);
             const errors = getValidationErrors(err);
             formRef.current?.setErrors(errors);
-            formRef.current?.setErrors({ name: 'Nome Obrigatório' });
+            //            formRef.current?.setErrors({ name: 'Nome Obrigatório' });
          }
       }
    }, []);
